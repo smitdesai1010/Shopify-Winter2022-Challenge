@@ -1,0 +1,23 @@
+{
+  "name": "shopify-winter2022-challenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smitdesai1010/Shopify-Winter2022-Challenge.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/smitdesai1010/Shopify-Winter2022-Challenge/issues"
+  },
+  "homepage": "https://github.com/smitdesai1010/Shopify-Winter2022-Challenge#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
