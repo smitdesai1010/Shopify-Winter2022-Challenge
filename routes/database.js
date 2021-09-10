@@ -1,8 +1,5 @@
 const mysql = require('mysql')
 
-console.log(process.env.MYSQL_USERNAME)
-console.log(process.env.MYSQL_HOST)
-
 const config = {
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USERNAME,
@@ -24,9 +21,12 @@ con.connect(error => {
     executeQuery : query => {
        return new Promise((resolve, reject) => {
             con.query(query, (error, result) => {
-                if (error) reject(err);
+                if (error) reject(error);
                 resolve(result);
             })
        })
     }
 };
+
+
+//https://stackoverflow.com/questions/50093144/mysql-8-0-client-does-not-support-authentication-protocol-requested-by-server

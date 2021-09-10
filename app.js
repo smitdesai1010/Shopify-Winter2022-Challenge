@@ -7,7 +7,6 @@ const signUp = require('./routes/signUp')
 const app = express();
 const PORT = process.env.PORT || 4500;
 
-
 app.use(express.static('public'));
 
 app.use('/login',login);

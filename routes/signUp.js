@@ -8,13 +8,21 @@ router.post('/', (req,res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    // db.executeQuery('SELECT * FROM users WHERE username='+username)
-    // .then( response => {
+    db.executeQuery(`INSERT INTO users values('${username}','${password}')`)
+    .then( response => {
+        res.status(200).send('User profile created successfully')
+    })
+    .catch( error => {
+        console.log('Error in SignUp\n'+error);
 
-    // })
-    // .catch( error => {
+        if (error.errno == 1062) {
+            res.status(409).send('A profile with a username exists already')
+        }
 
-    // })
+        else {
+            res.status(400).send('Unable to create profile, Please try again later')
+        }
+    })
 
 })
 
