@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/smitdesai1010/Shopify-Winter2022-Challenge#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
   }
 }

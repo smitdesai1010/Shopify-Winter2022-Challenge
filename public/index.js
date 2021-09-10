@@ -1,33 +1,33 @@
 const welcomeBlock = document.getElementById('welcomeBlock');
 const loginForm = document.getElementById('loginForm');
-const signupForm = document.getElementById('signupForm');
+const signUpForm = document.getElementById('signUpForm');
 
 loginForm.style.display = 'none';
-signupForm.style.display = 'none';
+signUpForm.style.display = 'none';
 
 document.getElementById('login').addEventListener('click', () => {
     welcomeBlock.style.display = 'none';
     loginForm.style.display = 'block';
-    signupForm.style.display = 'none';
+    signUpForm.style.display = 'none';
 })
 
 document.getElementById('submitLoginForm').addEventListener('click', () => {
     //Form validation here----------------------------
     welcomeBlock.style.display = 'block';
     loginForm.style.display = 'none';
-    signupForm.style.display = 'none';
+    signUpForm.style.display = 'none';
 })
 
 
-document.getElementById('signup').addEventListener('click', () => {
+document.getElementById('signUp').addEventListener('click', () => {
     welcomeBlock.style.display = 'none';
     loginForm.style.display = 'none';
-    signupForm.style.display = 'block';
+    signUpForm.style.display = 'block';
 })
 
-document.getElementById('submitSignupForm').addEventListener('click', () => {
+document.getElementById('submitSignUpForm').addEventListener('click', () => {
     //Form validation here----------------------------
     welcomeBlock.style.display = 'none';
     loginForm.style.display = 'block';
-    signupForm.style.display = 'none';
+    signUpForm.style.display = 'none';
 })
