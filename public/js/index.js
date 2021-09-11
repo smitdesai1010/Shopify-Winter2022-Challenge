@@ -43,7 +43,12 @@ document.getElementById('submitLoginForm').addEventListener('click', () => {
     })
     .then(token => {
 
-        sessionStorage.setItem(document.getElementById('usernameLoginInput').value, token);
+        const json = {
+            username: document.getElementById('usernameLoginInput').value, 
+            token: token
+        };
+
+        sessionStorage.setItem("userCredential", JSON.stringify(json));
 
         alert('Login Successfull');
         document.getElementById('usernameLoginInput').value = '';

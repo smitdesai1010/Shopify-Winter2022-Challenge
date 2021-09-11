@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../style.css">
+    <title>Image World</title>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <span class="navbar-brand" style="font-weight: bold;" href="#">IMAGE WORLD</span>
+    </nav>
+
+    <div class="h-100 d-flex flex-column justify-content-center align-items-center" style="position: relative;bottom: 50px;">
+
+        <div id="home">
+            <h1 id="name" style="text-align: center">Smit Desai</h1>
+            <div class="mt-4 d-flex justify-content-center">
+                <a id="uploadImage" class="mx-2 btn btn-primary">Upload Image</a>
+                <a id="viewPublicimage" class="mx-2 btn btn-primary" href="viewImages.html?imageVisibility=Public">Public Images</a>
+                <a id="viewPrivateimage" class="mx-2 btn btn-primary" href="viewImages.html?imageVisibility=Private">Your Images</a>
+            </div>
+        </div>
+
+
+        <form id="uploadImageForm" onsubmit="return false;">
+            <h1 class="mb-3">Upload Image</h1>
+
+            <div class="form-group" style="width:400px;">
+                <input id="imageName" class="form-control" placeholder="Enter image name">
+                <input id="imageDescription" class="form-control" placeholder="Enter image description" style="margin-top:10px">
+            </div>
+
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group">
+                        <input type="file" class="form-control-file" id="imageUploaded">
+                    </div>           
+                </div>
+
+                <div class="col">
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="imageVisibility">
+                        <label class="form-check-label">Keep the image public?</label>
+                    </div>                
+                </div>
+            </div>
+
+            <div class="form-group d-flex justify-content-between" style="width:400px">
+                <button id="uploadForm" class="btn btn-primary">Upload</button>
+                <button id="goBack" class="btn btn-primary">Go Back</button>
+            </div>
+        </form>
+
+    </div>
+    
+    <script src="../js/home.js"></script>
+
+</body>
+</html>
