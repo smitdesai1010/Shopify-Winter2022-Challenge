@@ -27,7 +27,7 @@ router.post('/', upload.array('image',10), (req, res) => {
         const visibility = imageInfo[i].publicVisibility ? 'public' : 'private';
 
         const query = `INSERT into images(name,filepath,extension,size,owner,visibility,description) 
-                     VALUES("${name}","${req.files[i].destination+req.files[i].filename}","${extension}","${req.files[i].size}", "${req.body.owner}" ,"${visibility}", "${imageInfo[i].description}")`
+                     VALUES("${name}","${req.files[i].filename}","${extension}","${req.files[i].size}", "${req.body.owner}" ,"${visibility}", "${imageInfo[i].description}")`
         
         db.executeQuery(query)
         .catch( error => {
