@@ -22,7 +22,7 @@ router.post('/', upload.array('image',10), (req, res) => {
 
     for (let i = 0; i < imageInfo.length; i++) {
 
-        const name = imageInfo[i].name != '' ? imageInfo[i].name : req.files[i].filename.substr(0,req.files[i].filename.indexOf('.'));
+        const name = imageInfo[i].name; //!= '' ? imageInfo[i].name : req.files[i].filename.substr(0,req.files[i].filename.indexOf('.'));
         const extension = req.files[i].originalname.substr(req.files[i].originalname.indexOf('.') + 1);
         const visibility = imageInfo[i].publicVisibility ? 'public' : 'private';
 

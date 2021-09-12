@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../style.css">
     <title>Image World</title>
 </head>
@@ -14,11 +16,58 @@
         <span class="navbar-brand" style="font-weight: bold;" href="#">IMAGE WORLD</span>
     </nav>
 
-
-    <h1 id="visibilityType" style="text-align: center;margin-top: 30px;"></h1>
+    <h1 id="imageType" style="text-align: center;margin-top: 30px;"></h1>
     <hr/>
     
-    <div id="images" class="d-flex justify-content-center">
+    <div class="d-flex justify-content-around">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#filters" aria-expanded="false" aria-controls="filters">
+            Filters
+        </button>
+
+        <button class="btn btn-primary" id="search">
+            Search
+        </button>
+    </div>
+    
+    <div class="collapse" id="filters">
+        <div class="form-group mt-3 d-flex justify-content-center">
+            <div style="width: 50%;">
+                <div class="d-flex justify-content-around">
+                    <input class="form-control" id="name" placeholder="Name" style="width:400px">
+                
+                    <select class="form-control" id="extension" placeholder="Extension" style="width:100px">
+                        <option value="All">All</option>
+                        <option value="JPG">JPG</option>
+                        <option value="PNG">PNG</option>
+                        <option value="GIF">GIF</option>
+                    </select>
+                </div>
+              
+                <div class="d-flex justify-content-around mt-3">
+                    <div>
+                        <label for="startDate">Uploaded after:</label>
+                        <input type="date" id="startDate">
+                    </div>
+        
+                    <div>
+                        <label for="endDate">Uploaded before:</label>
+                        <input type="date" id="endDate">
+                    </div>
+                </div>
+                
+                <div class="d-flex justify-content-around mt-3"> 
+                    <input class="form-control" id="minSize" placeholder="Minimum size (in Bytes)" style="width:200px">
+                    <input class="form-control" id="maxSize" placeholder="Maximum size (in Bytes)" style="width:200px">
+                </div>
+        
+                <div class="d-flex justify-content-center mt-3"> 
+                    <input class="form-control" id="description" placeholder="Description" style="width:400px">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="images" class="d-flex flex-wrap justify-content-center">
     <div>
 
     

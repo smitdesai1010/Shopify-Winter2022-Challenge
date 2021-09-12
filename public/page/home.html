@@ -20,8 +20,8 @@
             <h1 id="name" style="text-align: center">Smit Desai</h1>
             <div class="mt-4 d-flex justify-content-center">
                 <a id="uploadImage" class="mx-2 btn btn-primary">Upload Image</a>
-                <a id="viewPublicimage" class="mx-2 btn btn-primary" href="viewImages.html?imageVisibility=Public">Public Images</a>
-                <a id="viewPrivateimage" class="mx-2 btn btn-primary" href="viewImages.html?imageVisibility=Private">Your Images</a>
+                <a id="viewPublicimage" class="mx-2 btn btn-primary" href="viewImages.html?imageType=Public">Public Images</a>
+                <a id="viewPrivateimage" class="mx-2 btn btn-primary" href="viewImages.html?imageType=myImages">My Images</a>
             </div>
         </div>
 
@@ -30,7 +30,7 @@
             <h1 class="mb-3">Upload Images</h1>
 
             <div class="form-group">
-                <input type="file" class="form-control-file" id="imageUploaded" name="image" multiple>
+                <input type="file" class="form-control-file" id="imageUploaded" name="image" accept=".jpg,.png,.gif" multiple>
                 <label for="imageUploaded">Maximum 10 images</label>
             </div>  
 
