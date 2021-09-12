@@ -8,6 +8,10 @@
 
 const home = document.getElementById('home');
 const uploadImageForm = document.getElementById('uploadImageForm');
+const imageInput = document.getElementById('imageUploaded');
+const imagePreview = document.getElementById('imagePreview');
+const submitUploadForm = document.getElementById('submitUploadForm');
+
 uploadImageForm.style.display = 'none';
 
 document.getElementById('uploadImage').addEventListener('click', () => {
@@ -15,8 +19,90 @@ document.getElementById('uploadImage').addEventListener('click', () => {
     home.style.display='none';
 })
 
+imageInput.addEventListener('change', () => {
+    if (imageInput.files) {
+
+        imagePreview.innerHTML = '';        //delete previous reviews
+
+        Array.from(imageInput.files).forEach(img => {
+            imagePreview.innerHTML += `
+            <div class="d-flex flex-row justify-content-center mt-5">
+                <img src="${URL.createObjectURL(img)}" alt="" height="140px" width="140px">
+
+                <div class="mx-3">
+                    <div class="form-group" style="width:400px;">
+                        <input class="imageName form-control" placeholder="Enter image name">
+                        <input class="imageDescription form-control" placeholder="Enter image description" style="margin-top:10px">
+                    </div>    
+                    
+                    <div class="form-group form-check">
+                        <input class="imageVisibility form-check-input" type="checkbox" >
+                        <label class="form-check-label">Keep the image public?</label>
+                    </div>   
+                </div>
+            </div>`
+        });
+    }
+})
+
+submitUploadForm.addEventListener('click', () => {
+
+    if (imageInput.files.length == 0) {
+        alert('No image selected');
+        uploadImageForm.reset();
+        return;
+    }
+
+    if (imageInput.files.length > 10) {
+        alert('Only 10 images are allowed');
+        uploadImageForm.reset();
+        return;
+    }
+
+    const formData = new FormData();
+    const imageNames = document.getElementsByClassName('imageName');
+    const imageDescriptions = document.getElementsByClassName('imageDescription')
+    const imageVisibilities = document.getElementsByClassName('imageVisibility');
+
+    Array.from(imageInput.files).forEach(img => {
+        formData.append('image',img);
+    })
+
+    for (let i = 0; i < imageInput.files.length; ++i) {
+        formData.append('imageInfo', JSON.stringify({
+            name: imageNames[i].value,
+            description: imageDescriptions[i].value,
+            publicVisibility: imageVisibilities[i].checked
+        }))
+    }
+
+    //JSON.parse(sessionStorage.getItem("userCredential")).username
+    formData.append('owner','smit')
+
+    fetch('/upload', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(res => {
+        if (res.status == 200) {
+            imagePreview.innerHTML = `<h3>Successfully uploaded ${imageInput.files.length} images</h3>`
+            uploadImageForm.reset();
+        }
+        else {
+            throw res.status;
+        }
+    })
+    .catch(err => {
+        uploadImageForm.reset();
+        console.log('Error in upload: ', err,'\n View server logs for more information')
+        imagePreview.innerHTML = 'Unable to upload images, please try again';
+    })
+
+})
 
 document.getElementById('goBack').addEventListener('click', () => {
     uploadImageForm.style.display = 'none';
     home.style.display='block';
 })
+
+
