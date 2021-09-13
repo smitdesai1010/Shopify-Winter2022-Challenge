@@ -3,7 +3,6 @@ if (sessionStorage.getItem("userCredential") == null || sessionStorage.getItem("
     window.location.href = "../index.html";
 }
 
-
 const imageContainer = document.getElementById('images');
 const urlParams = new URLSearchParams(window.location.search);
 const imageType = urlParams.get('imageType') == undefined ? 'public' : urlParams.get('imageType');

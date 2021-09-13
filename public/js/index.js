@@ -11,6 +11,16 @@ document.getElementById('login').addEventListener('click', () => {
     signUpForm.style.display = 'none';
 })
 
+document.getElementById('guest').addEventListener('click', () => {
+    const json = {
+        username: 'GUEST', 
+        token: ''
+    };
+
+    sessionStorage.setItem("userCredential", JSON.stringify(json));
+    window.location.href = 'page/home.html';
+})
+
 document.getElementById('submitLoginForm').addEventListener('click', () => {
     
     const USERNAME = document.getElementById('usernameLoginInput').value;
@@ -87,6 +97,11 @@ document.getElementById('submitSignUpForm').addEventListener('click', () => {
     const USERNAME = document.getElementById('usernameSignUpInput').value;
     const PASSWORD = document.getElementById('passwordSignUpInput').value;
     const PASSWORDAGAIN = document.getElementById('passwordSignUpInputAgain').value;
+
+    if (USERNAME == 'GUEST') {
+        alert('Reserved username. Please choose another username')
+        return;
+    }
 
     if (USERNAME == '') {
         alert('Username is required');

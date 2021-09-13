@@ -4,17 +4,37 @@ if (sessionStorage.getItem("userCredential") == null || sessionStorage.getItem("
 }
 
 const userCredential = JSON.parse(sessionStorage.getItem("userCredential"))
-document.getElementById('name').innerHTML = 'Hello '+userCredential.username+'!';
+document.getElementById('name').innerHTML = 'Hello '+userCredential.username+' !';
 
 const home = document.getElementById('home');
 const uploadImageForm = document.getElementById('uploadImageForm');
 const imageInput = document.getElementById('imageUploaded');
 const imagePreview = document.getElementById('imagePreview');
 const submitUploadForm = document.getElementById('submitUploadForm');
+const viewPublicImage = document.getElementById('viewPublicImage');
+const viewUserImage = document.getElementById('viewUserImage');
+
+viewPublicImage.addEventListener('click', () => window.location.href = 'viewImages.html?imageType=Public' )
+
+viewUserImage.addEventListener('click', () => {
+    if (userCredential.username == 'GUEST') {
+        alert('Guest has no images. Please login to view your images');
+        return;
+    }
+
+    window.location.href = 'viewImages.html?imageType=myImages'
+})
+
 
 uploadImageForm.style.display = 'none';
 
 document.getElementById('uploadImage').addEventListener('click', () => {
+
+    if (userCredential.username == 'GUEST') {
+        alert('Guest cannot upload images. Please login to upload');
+        return;
+    }
+
     uploadImageForm.style.display = 'block';
     home.style.display='none';
 })
