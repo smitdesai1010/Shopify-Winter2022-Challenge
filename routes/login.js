@@ -6,7 +6,6 @@ const db = require(__dirname+'/database')
 const cache = [];
 
 router.use(express.json());
-
 router.post('/', (req,res) => {
 
     const username = req.body.username;
@@ -34,4 +33,13 @@ router.post('/', (req,res) => {
 
 })
 
-module.exports = router;
+
+
+module.exports = {
+    router : router,
+    authorize: (username, token) => {
+            if (!(username in cache))    return false;
+            if (cache[username] != token) return false;
+            return true;
+    }
+};

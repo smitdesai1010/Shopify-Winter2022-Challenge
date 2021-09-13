@@ -1,10 +1,10 @@
-// if (sessionStorage.getItem("userCredential") == null || sessionStorage.getItem("userCredential") == '') {
-//     alert('User not logged in');
-//     window.location.href = "../index.html";
-// }
+if (sessionStorage.getItem("userCredential") == null || sessionStorage.getItem("userCredential") == '') {
+    alert('User not logged in');
+    window.location.href = "../index.html";
+}
 
-// const userCredential = JSON.parse(sessionStorage.getItem("userCredential"))
-// document.getElementById('name').innerHTML = 'Hello '+userCredential.username+'!';
+const userCredential = JSON.parse(sessionStorage.getItem("userCredential"))
+document.getElementById('name').innerHTML = 'Hello '+userCredential.username+'!';
 
 const home = document.getElementById('home');
 const uploadImageForm = document.getElementById('uploadImageForm');
@@ -76,8 +76,7 @@ submitUploadForm.addEventListener('click', () => {
         }))
     }
 
-    //JSON.parse(sessionStorage.getItem("userCredential")).username
-    formData.append('owner','smit')
+    formData.append('owner',JSON.parse(sessionStorage.getItem("userCredential")).username)
 
     fetch('/upload', {
         method: 'POST',

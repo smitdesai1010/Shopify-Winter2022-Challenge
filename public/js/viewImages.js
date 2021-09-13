@@ -1,13 +1,21 @@
+if (sessionStorage.getItem("userCredential") == null || sessionStorage.getItem("userCredential") == '') {
+    alert('User not logged in');
+    window.location.href = "../index.html";
+}
+
+
 const imageContainer = document.getElementById('images');
 const urlParams = new URLSearchParams(window.location.search);
 const imageType = urlParams.get('imageType') == undefined ? 'public' : urlParams.get('imageType');
 document.getElementById('imageType').innerHTML = imageType == 'myImages' ? 'My Images' : 'Public Images';
 
 const body = {
+    username: JSON.parse(sessionStorage.getItem("userCredential")).username,
+    token: JSON.parse(sessionStorage.getItem("userCredential")).token,
     imageType: imageType
 };
 
-if (imageType == 'myImages')    body.owner = 'smit';
+if (imageType == 'myImages')    body.owner = JSON.parse(sessionStorage.getItem("userCredential")).username;
 searchImages(body);     //when page loads
 
 
@@ -19,14 +27,6 @@ document.getElementById('search').addEventListener('click', () => {
     const minSize = document.getElementById('minSize').value;
     const maxSize = document.getElementById('maxSize').value;
     const description = document.getElementById('description').value;
-    
-    // console.log(name)
-    // console.log(extension)
-    // console.log(startDate)
-    // console.log(endDate)
-    // console.log(minSize)
-    // console.log(maxSize)
-    // console.log(description)
 
     if (name != '')         body.name = name;
     if (extension != 'All') body.extension = extension;
@@ -56,6 +56,7 @@ function searchImages(body) {
         return res.json();
     })
     .then(json => {
+        console.log('asdas',json)
         if (json.length == 0)
             imageContainer.innerHTML = 'No images found';
     
@@ -64,6 +65,7 @@ function searchImages(body) {
         })
     })
     .catch(err => {
+        if (err == 401)     alert('Unauthorized user, please login again')
         imageContainer.innerHTML = 'Unable to load images';
         console.log('Unable to load images, Status Code: ',err);
     })

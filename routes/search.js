@@ -1,8 +1,20 @@
 const express = require('express')
 const router = express();
 const db = require(__dirname+'/database')
+const login = require(__dirname+'/login')
+
 
 router.use(express.json());
+
+router.use('/', (req, res, next) => {
+    if (!login.authorize(req.body.username,req.body.token)) {
+        res.sendStatus(401);
+    }
+    else {
+        next()
+    }
+})
+
 router.post('/', (req,res) => {
     let query = 'SELECT filepath FROM images';
 
@@ -18,12 +30,7 @@ router.post('/', (req,res) => {
 
     db.executeQuery(query)
     .then(response => {
-        if (response.length == 0) {
-            res.sendStatus(404);
-        }
-        else {
-            res.status(200).send(response)
-        }
+        res.status(200).send(response)
     })
     .catch( error => {
         console.log('Error in loading images\n'+error);

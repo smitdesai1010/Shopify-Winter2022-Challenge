@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 4500;
 
 app.use(express.static('public'));
 
-app.use('/login',login);
+app.use('/login',login.router);
 app.use('/signUp',signUp);
 app.use('/upload',upload);
 app.use('/search',search);

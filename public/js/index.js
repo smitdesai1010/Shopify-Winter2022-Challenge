@@ -51,6 +51,8 @@ document.getElementById('submitLoginForm').addEventListener('click', () => {
         sessionStorage.setItem("userCredential", JSON.stringify(json));
 
         alert('Login Successfull');
+        window.location.href = 'page/home.html';
+
         document.getElementById('usernameLoginInput').value = '';
         document.getElementById('passwordLoginInput').value = '';
         welcomeBlock.style.display = 'block';
