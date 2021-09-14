@@ -32,3 +32,15 @@
 | imageId | INT | FK; references images.id |
 | label | VARCHAR(50) | not null |
 | | | PK = (imageId,label) |
+
+
+
+## Things Learnt
+
+* Writing unit tests
+* Handling files uploads using multer (node.js package)
+* Using postman for testing APIs
+* Using token authorization
+
+
+* GUEST can only view public images

@@ -8,13 +8,16 @@ const urlParams = new URLSearchParams(window.location.search);
 const imageType = urlParams.get('imageType') == undefined ? 'public' : urlParams.get('imageType');
 document.getElementById('imageType').innerHTML = imageType == 'myImages' ? 'My Images' : 'Public Images';
 
-const body = {
-    username: JSON.parse(sessionStorage.getItem("userCredential")).username,
-    token: JSON.parse(sessionStorage.getItem("userCredential")).token,
-    imageType: imageType
-};
+let PATH = 'public'
+const body = {};
+const HEADERS = { 'Content-Type':'application/json' };
 
-if (imageType == 'myImages')    body.owner = JSON.parse(sessionStorage.getItem("userCredential")).username;
+if (imageType == 'myImages')  {
+    PATH = 'private';
+    body.owner = JSON.parse(sessionStorage.getItem("userCredential")).username;
+    HEADERS.Authorization = 'Bearer ' + JSON.parse(sessionStorage.getItem("userCredential")).token
+}  
+
 searchImages(body);     //when page loads
 
 
@@ -35,19 +38,17 @@ document.getElementById('search').addEventListener('click', () => {
     if (maxSize != '')      body.maxSize = maxSize;
     if (description != '')  body.description = description;
 
-    console.log(body)
     searchImages(body)
 })
 
 
 
 function searchImages(body) {
-
     imageContainer.innerHTML = '';  //reseting content
 
-    fetch('/search', {
+    fetch('/search/'+PATH, {
         method: 'POST',
-        headers: { 'Content-Type':'application/json' },
+        headers: HEADERS,
         body: JSON.stringify(body)
     })
     .then(res => {
@@ -55,7 +56,6 @@ function searchImages(body) {
         return res.json();
     })
     .then(json => {
-        console.log('asdas',json)
         if (json.length == 0)
             imageContainer.innerHTML = 'No images found';
     
@@ -64,7 +64,7 @@ function searchImages(body) {
         })
     })
     .catch(err => {
-        if (err == 401)     alert('Unauthorized user, please login again')
+        if (err == 401 || err == 403)     alert('Unauthorized user, please login again')
         imageContainer.innerHTML = 'Unable to load images';
         console.log('Unable to load images, Status Code: ',err);
     })

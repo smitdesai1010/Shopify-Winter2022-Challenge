@@ -1,25 +1,23 @@
 const express = require('express')
 const router = express();
 const db = require(__dirname+'/database')
-const login = require(__dirname+'/login')
-
+const authorization = require(__dirname+'/authorization')
 
 router.use(express.json());
 
-router.use('/', (req, res, next) => {
-    if (!login.authorize(req.body.username,req.body.token)) {
-        res.sendStatus(401);
-    }
-    else {
-        next()
-    }
+router.post('/public', (req,res) => {
+    let query = 'SELECT filepath FROM images WHERE visibility="public"';
+    searchDatabase(req, res, query);
 })
 
-router.post('/', (req,res) => {
-    let query = 'SELECT filepath FROM images';
+router.use('/private',authorization);
+router.post('/private', (req,res) => {
+    let query = `SELECT filepath FROM images WHERE owner='${res.locals.owner}'`;
+    searchDatabase(req, res, query); 
+})
 
-    if (req.body.imageType == 'Public') query += ` WHERE visibility='public'`;
-    else                                query += ` WHERE owner='${req.body.owner}'`;
+
+function searchDatabase(req,res,query) {
     if (req.body.name != null)          query += ` AND name like '%${req.body.name}%'`;
     if (req.body.extension != null)     query += ` AND extension='${req.body.extension}'`; 
     if (req.body.startDate != null)     query += ` AND uploadDate>='${req.body.startDate}'`;
@@ -36,7 +34,7 @@ router.post('/', (req,res) => {
         console.log('Error in loading images\n'+error);
         res.sendStatus(400);
     })
+}
 
-})
 
 module.exports = router;

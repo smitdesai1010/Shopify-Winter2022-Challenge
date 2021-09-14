@@ -1,9 +1,7 @@
 const express = require('express')
 const router = express();
-const { v4: uuidv4 } = require('uuid');
+const jwt = require('jsonwebtoken')
 const db = require(__dirname+'/database')
-
-const cache = [];
 
 router.use(express.json());
 router.post('/', (req,res) => {
@@ -14,7 +12,7 @@ router.post('/', (req,res) => {
     db.executeQuery(`SELECT password FROM users WHERE username='${username}' LIMIT 1`)
     .then(response => {
         if (response.length == 0) {
-            res.sendStatus(404);
+            res.status(404).send('No account found with the supplied username');
         }
 
         else if (response[0].password != password) {
@@ -22,8 +20,8 @@ router.post('/', (req,res) => {
         }
 
         else {
-            cache[username] = uuidv4();
-            res.status(200).send(cache[username])
+            let token = jwt.sign({username: username},'ShopifyIsCool',{expiresIn: '1h'});
+            res.status(200).send(token)
         }
     })
     .catch( error => {
@@ -34,12 +32,4 @@ router.post('/', (req,res) => {
 })
 
 
-
-module.exports = {
-    router : router,
-    authorize: (username, token) => {
-            if (!(username in cache))    return false;
-            if (cache[username] != token) return false;
-            return true;
-    }
-};
+module.exports = router

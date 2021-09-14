@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express();
 const multer = require('multer');
-const db = require(__dirname+'/database')
 const { v4: uuidv4 } = require('uuid');
+const db = require(__dirname+'/database')
+const authorization = require(__dirname+'/authorization')
 
 const storage = multer.diskStorage({
     destination: (req, file, callBack) => {
@@ -16,6 +17,7 @@ const storage = multer.diskStorage({
 
 let upload = multer({ storage: storage });
 
+router.use(authorization)
 router.post('/', upload.array('image',10), (req, res) => {
     
     let imageInfo = Array.isArray(req.body.imageInfo) ? req.body.imageInfo.map(JSON.parse) : [JSON.parse(req.body.imageInfo)]
@@ -27,7 +29,7 @@ router.post('/', upload.array('image',10), (req, res) => {
         const visibility = imageInfo[i].publicVisibility ? 'public' : 'private';
 
         const query = `INSERT into images(name,filepath,extension,size,owner,visibility,description) 
-                     VALUES("${name}","${req.files[i].filename}","${extension}","${req.files[i].size}", "${req.body.owner}" ,"${visibility}", "${imageInfo[i].description}")`
+                     VALUES("${name}","${req.files[i].filename}","${extension}","${req.files[i].size}", "${res.locals.owner}" ,"${visibility}", "${imageInfo[i].description}")`
         
         db.executeQuery(query)
         .catch( error => {

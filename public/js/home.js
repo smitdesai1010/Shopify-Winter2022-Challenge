@@ -99,6 +99,7 @@ submitUploadForm.addEventListener('click', () => {
     formData.append('owner',JSON.parse(sessionStorage.getItem("userCredential")).username)
 
     fetch('/upload', {
+        headers: {'Authorization': 'Bearer ' + JSON.parse(sessionStorage.getItem("userCredential")).token},
         method: 'POST',
         body: formData,
     })
