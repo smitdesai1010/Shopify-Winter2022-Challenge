@@ -24,3 +24,5 @@ app.all('*',(req,res) => {
 
 
 app.listen(PORT, () => console.log('Server connected at:', `localhost:${PORT}`));
+
+module.exports = app;

@@ -11,7 +11,7 @@ router.use('/', (req, res, next) => {
     }
 
     token = token.slice(7, token.length);
-    jwt.verify(token, 'ShopifyIsCool', (err, decoded) => {
+    jwt.verify(token, 'shopifyIsAwesome', (err, decoded) => {
       if (err)    res.status(401).send('Invalid token');
       else {
         res.locals.owner = decoded.username

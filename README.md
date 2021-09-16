@@ -30,8 +30,17 @@
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | imageId | INT | FK; references images.id |
-| label | VARCHAR(50) | not null |
+| label | VARCHAR(50) | |
 | | | PK = (imageId,label) |
+
+
+#### Table: imageTexts
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| imageId | INT | FK; references images.id |
+| text | VARCHAR(200) | |
+| | | PK = (imageId,text) |
 
 
 
@@ -44,3 +53,6 @@
 
 
 * GUEST can only view public images
+* Prevents sql injection
+
+* Unable to add certain link images in the shopify store

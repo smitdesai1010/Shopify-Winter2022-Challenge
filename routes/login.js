@@ -9,6 +9,11 @@ router.post('/', (req,res) => {
     const username = req.body.username;
     const password = req.body.password;
 
+    if (username == null || password == null) {
+        res.status(403).send('Credentials are undefined');
+        return;
+    }
+
     db.executeQuery(`SELECT password FROM users WHERE username='${username}' LIMIT 1`)
     .then(response => {
         if (response.length == 0) {
@@ -20,7 +25,7 @@ router.post('/', (req,res) => {
         }
 
         else {
-            let token = jwt.sign({username: username},'ShopifyIsCool',{expiresIn: '1h'});
+            let token = jwt.sign({username: username},'shopifyIsAwesome',{expiresIn: '1h'});
             res.status(200).send(token)
         }
     })

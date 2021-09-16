@@ -13,14 +13,13 @@ con.connect(error => {
        console.log('Error in connecting to the database\n'+error)
        process.exit(1)
     }
-    console.log('Connected to the database');
  })
 
 
  module.exports = {
-    executeQuery : query => {
+    executeQuery : queryString => {
        return new Promise((resolve, reject) => {
-            con.query(query, (error, result) => {
+            con.query(queryString, (error, result) => {
                 if (error) reject(error);
                 resolve(result);
             })
