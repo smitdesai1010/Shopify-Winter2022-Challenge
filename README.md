@@ -2,6 +2,20 @@
 
 Technologies used: JavaScript, Node.js, Express.js, HTML/CSS/Bootsrap, Google-vision API, MySQL, file-storage, heroku
 
+<details>
+    <summary style="cursor:pointer; font-size: 28px; font-weight: bold; font">Screenshots</summary>
+    <img src="Assets/SS-1.jpg"/>
+    <img src="Assets/SS-2.jpg"/>
+    <img src="Assets/SS-3.jpg"/>
+    <img src="Assets/SS-4.jpg"/>
+    <img src="Assets/SS-5.jpg"/>
+    <img src="Assets/SS-6.jpg"/>
+    <img src="Assets/SS-7.jpg"/>
+</details>
+
+<br/>
+
+
 
 ## Features
 * Upload Pictures
@@ -49,14 +63,6 @@ create table imageLabels(imageId INT, label VARCHAR(50), PRIMARY KEY (imageId,la
 create table imageOCRs(imageId INT, text VARCHAR(200), PRIMARY KEY (imageId,text), FOREIGN KEY (imageId) REFERENCES images(id) ON DELETE CASCADE);
 ```
 
-Note: If you face error code 1175 in mysql, please execute the following mysql queries. 
-Replace root, localhost and password with your credentials.
-```
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
-FLUSH PRIVILEGES;
-```
-
-
 Clone the project
 
 ```
@@ -84,7 +90,14 @@ Go to the project directory
 npm install     
 npm start   
 ```
-Go to http://localhost:4500/
+
+Note: If you face error code 1175 in mysql, please execute the following mysql queries. 
+Replace root, localhost and password with your credentials.
+```
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+FLUSH PRIVILEGES;
+```
+
 
 
 Run tests

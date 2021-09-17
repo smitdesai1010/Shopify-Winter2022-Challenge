@@ -62,12 +62,12 @@ function identifyLabels(imageId, fileName) {
 
         db.executeQuery(query)
         .catch(error => {
-            console.log('Error in entering imagelabels\n',imageId,fileName,'\n',error)
+            console.log('Error in entering imagelabels\n')
             return;
         })
     })    
     .catch(error => {
-        console.log('Error in performing labels',fileName,error)
+        console.log('Error in performing labels')
     })
 }
 
@@ -91,12 +91,12 @@ function performOCR(imageId, fileName) {
         query = query.substr(0, query.length-1); //removing last comma
         db.executeQuery(query)
         .catch(error => {
-            console.log('Error in entering imageOCR\n',imageId,fileName,'\n', error)
+            console.log('Error in entering imageOCR\n')
             return;
         })
     })
     .catch(error => {
-        console.log('Error in performing OCR',fileName,error)
+        console.log('Error in performing OCR')
     })
 }
 
