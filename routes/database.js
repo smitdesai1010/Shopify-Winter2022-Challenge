@@ -4,7 +4,7 @@ const config = {
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USERNAME,
     password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE
+    database: 'shopifyWinter2022InternChallenge'
 }
 
 const con = mysql.createConnection(config)
@@ -13,6 +13,7 @@ con.connect(error => {
        console.log('Error in connecting to the database\n'+error)
        process.exit(1)
     }
+    console.log('Connection to database established')
  })
 
 

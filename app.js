@@ -6,6 +6,7 @@ const signUp = require('./routes/signUp')
 const upload = require('./routes/upload')
 const search = require('./routes/search')
 const image = require('./routes/image')
+const deleteImage = require('./routes/delete')
 
 const app = express();
 const PORT = process.env.PORT || 4500;
@@ -17,6 +18,7 @@ app.use('/signUp',signUp);
 app.use('/upload',upload);
 app.use('/search',search);
 app.use('/image',image);
+app.use('/delete',deleteImage)
 
 app.all('*',(req,res) => {
     res.send('This is a invalid route');

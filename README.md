@@ -1,5 +1,86 @@
 # Shopify-Winter2022-Challenge
- 
+
+Technologies used: JavaScript, Node.js, Express.js, HTML/CSS/Bootsrap, Google-vision API, MySQL
+
+
+## Features
+* Upload Pictures
+    * Maximum 10 pictures can be uploaded at once
+    * .jpg .png .gif are accepted types
+    * User can upload a picture publicly or privatey
+    * Guest cannot upload pictures
+
+* Search filters
+    * Labels (like: Night, Beauty, Happy, Street, Dog, Ice-cream etc)
+    * Text present in a picture
+    * Name of the file entered during upload or the original filename
+    * Extension of the picture
+    * Pictures uploaded before and after a certain date
+    * Maximum and minimum size of the picture in Bytes
+    * Words present in description entered during upload.
+
+* Delete Pictures
+    * A user can delete only pictures uploaded by him/her/they
+
+* View Pictures 
+    * User can view public as well as pictures uploaded by him/her/they
+    * Guest can only view public pictures
+
+## Run Locally
+
+Install node, npm and MySQL
+```
+https://nodejs.org/en/download/
+https://www.mysql.com/downloads/
+```
+
+Create a default database and add the following tables 
+```
+create database shopifyWinter2022InternChallenge;
+use shopifyWinter2022InternChallenge;
+
+create table images(id INT primary key, name VARCHAR(50) not null, filepath VARCHAR(50) not null, extension VARCHAR(10) default 'jpg', size INT default 0, owner VARCHAR(50) default 'GUEST', visibility VARCHAR(8) default 'private', uploadDate DATE DEFAULT (curdate()), description VARCHAR(200));
+
+create table imageLabels(imageId INT, label VARCHAR(50), PRIMARY KEY (imageId,label), FOREIGN KEY (imageId) REFERENCES images(id) ON DELETE CASCADE);
+
+create table imageOCRs(imageId INT, text VARCHAR(200), PRIMARY KEY (imageId,text), FOREIGN KEY (imageId) REFERENCES images(id) ON DELETE CASCADE);
+```
+//https://stackoverflow.com/questions/50093144/mysql-8-0-client-does-not-support-authentication-protocol-requested-by-server
+
+Clone the project
+
+```
+git clone https://github.com/smitdesai1010/Shopify-Winter2022-Challenge.git
+```
+
+Add the following environment variables in a .env file located in the root directory of the project
+
+<pre>
+    <span>MYSQL_USERNAME</span>
+    <span>MYSQL_PASSWORD</span>
+    <span>MYSQL_HOST</span>
+
+    <a href="https://cloud.google.com/vision/docs/before-you-begin 
+    ">GOOGLE_APPLICATION_CREDENTIALS</a>
+</pre>
+
+Note: Contact me if you are having trouble setting up google vision api, I will provide you my key for a temporary basis.
+<br/>
+
+Go to the project directory
+
+```
+npm install     
+npm start   
+```
+Go to http://localhost:4500/
+
+
+Run tests
+```
+npm test
+```
+
 ## SQL SCHEMA
 
 #### Table: users
@@ -44,6 +125,8 @@
 
 
 
+
+
 ## Things Learnt
 
 * Writing unit tests
@@ -51,8 +134,3 @@
 * Using postman for testing APIs
 * Using token authorization
 
-
-* GUEST can only view public images
-* Prevents sql injection
-
-* Unable to add certain link images in the shopify store

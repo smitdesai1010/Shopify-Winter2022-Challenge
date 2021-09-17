@@ -22,6 +22,8 @@ searchImages(body);     //when page loads
 
 
 document.getElementById('search').addEventListener('click', () => {
+    body = {};
+    const label = document.getElementById('label').value;
     const name = document.getElementById('name').value;
     const extension = document.getElementById('extension').value;
     const startDate = document.getElementById('startDate').value;
@@ -30,6 +32,7 @@ document.getElementById('search').addEventListener('click', () => {
     const maxSize = document.getElementById('maxSize').value;
     const description = document.getElementById('description').value;
 
+    if (label != '')        body.labels = label.split(' ')
     if (name != '')         body.name = name;
     if (extension != 'All') body.extension = extension;
     if (startDate != '')    body.startDate = startDate;
@@ -60,7 +63,20 @@ function searchImages(body) {
             imageContainer.innerHTML = 'No images found';
     
         json.forEach(img => {
-            imageContainer.innerHTML += `<img src="${'http://localhost:4500/image/'+img.filepath}" height="400" width="400" class="m-3">`
+            imageContainer.innerHTML += `
+                <div class="d-flex flex-column mt-5">
+                 
+                    <img src="${'http://localhost:4500/image/'+img.filepath}" height="400" width="400" class="m-3">
+                    
+                    <div class="d-flex justify-content-around">
+                        <a class="btn btn-primary" href="${'http://localhost:4500/image/'+img.filepath}" download>Download</a>
+                        <button class="btn btn-danger" value="${img.filepath}" onclick="deleteImage(this)" style="${imageType == 'myImages' ? 'display:block' : 'display:none'}">
+                            Delete
+                        </button>
+                    </div>
+                
+                </div>
+                `
         })
     })
     .catch(err => {
@@ -70,3 +86,19 @@ function searchImages(body) {
     })
 }
 
+function deleteImage(ele) {
+    console.log(ele.value);
+
+    fetch('/delete/'+ele.value, {
+        method: 'POST',
+        headers: { 'Authorization' : 'Bearer ' + JSON.parse(sessionStorage.getItem("userCredential")).token },
+    })
+    .then(res => {
+        if (res.status != 200)  throw res.status;
+        alert('Image deleted successfully, please refresh the page')
+    })
+    .catch(err => {
+        console.log('Error in deleting the image\n',err);
+        alert('Unable to delete the image, please try again later');
+    })
+}

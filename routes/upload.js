@@ -27,7 +27,7 @@ router.post('/', upload.array('image',10), (req, res) => {
 
     for (let i = 0; i < imageInfo.length; i++) {
         const imageID = (Math.random()*10**9).toFixed();
-        const name = imageInfo[i].name; 
+        const name = imageInfo[i].name == '' ? req.files[i].originalname : imageInfo[i].name; 
         const extension = req.files[i].originalname.substr(req.files[i].originalname.indexOf('.') + 1);
         const visibility = imageInfo[i].publicVisibility ? 'public' : 'private';
 
@@ -36,7 +36,6 @@ router.post('/', upload.array('image',10), (req, res) => {
         
         db.executeQuery(query)
         .then(response => {
-            res.sendStatus(200);
             identifyLabels(imageID, req.files[i].path);
             performOCR(imageID, req.files[i].path);
         })
@@ -46,6 +45,8 @@ router.post('/', upload.array('image',10), (req, res) => {
             return;
         })
     }
+
+    res.sendStatus(200);
 })
 
 function identifyLabels(imageId, fileName) {
@@ -56,10 +57,11 @@ function identifyLabels(imageId, fileName) {
         let query = 'INSERT into imageLabels values'
         labels.forEach(label => query += `("${imageId}","${label.description}"),`)
     
-        query.substr(0, query.length-2); //removing last comma
+        query = query.substr(0, query.length-1); //removing last comma
+
         db.executeQuery(query)
         .catch( error => {
-            console.log('Error in entering imagelabels\n',imageId,filename,'\n',error)
+            console.log('Error in entering imagelabels\n',imageId,fileName,'\n',error)
             return;
         })
     })
@@ -73,13 +75,13 @@ function performOCR(imageId, fileName) {
         let query = 'INSERT into imageOCRs values'
         texts.forEach(text => { 
             if (text == '')     return;
-            query += `("${imageId}","${text}"),`
+            query += `("${imageId}","${text.description}"),`
         })
     
-        query.substr(0, query.length-2); //removing last comma
+        query = query.substr(0, query.length-1); //removing last comma
         db.executeQuery(query)
         .catch( error => {
-            console.log('Error in entering imageOCR\n',imageId,filename,'\n',error)
+            console.log('Error in entering imageOCR\n',imageId,fileName,'\n',error)
             return;
         })
     })
