@@ -4,7 +4,7 @@ const config = {
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USERNAME,
     password: process.env.MYSQL_PASSWORD,
-    database: 'shopifyWinter2022InternChallenge'
+    database: process.env.MYSQL_DATABASE
 }
 
 const con = mysql.createConnection(config)

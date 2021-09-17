@@ -79,6 +79,15 @@ submitUploadForm.addEventListener('click', () => {
         return;
     }
 
+    const MAXSIZE = 1024*1024*15;
+    for (let i = 0; i < imageInput.files.length; ++i) {
+        if (imageInput.files[i].size > MAXSIZE) {
+            alert('Max file size is 15MB')
+            uploadImageForm.reset();
+            return;
+        }
+    }
+
     const formData = new FormData();
     const imageNames = document.getElementsByClassName('imageName');
     const imageDescriptions = document.getElementsByClassName('imageDescription')

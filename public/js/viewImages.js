@@ -9,7 +9,7 @@ const imageType = urlParams.get('imageType') == undefined ? 'public' : urlParams
 document.getElementById('imageType').innerHTML = imageType == 'myImages' ? 'My Images' : 'Public Images';
 
 let PATH = 'public'
-const body = {};
+let body = {};
 const HEADERS = { 'Content-Type':'application/json' };
 
 if (imageType == 'myImages')  {

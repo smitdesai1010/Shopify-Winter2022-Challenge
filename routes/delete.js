@@ -18,10 +18,10 @@ router.post('/:filepath', (req,res) => {
             return;
         }
 
-        fs.unlink('images/'+req.body, (err) => {
-            if (err) throw error();
+        fs.unlink('images/'+req.params.filepath, (err) => {
+            if (err) throw err;
 
-            db.executeQuery(`Delete from images where filepath = '${req.body}'`);
+            db.executeQuery(`Delete from images where filepath = '${req.params.filepath}'`);
             res.sendStatus(200);
         })
     })

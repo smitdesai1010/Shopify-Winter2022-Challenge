@@ -53,37 +53,50 @@ function identifyLabels(imageId, fileName) {
     client.labelDetection(fileName)
     .then( ([result]) => {
         const labels = result.labelAnnotations;
-        
+        if (labels.length == 0)     return;
+
         let query = 'INSERT into imageLabels values'
         labels.forEach(label => query += `("${imageId}","${label.description}"),`)
     
         query = query.substr(0, query.length-1); //removing last comma
 
         db.executeQuery(query)
-        .catch( error => {
+        .catch(error => {
             console.log('Error in entering imagelabels\n',imageId,fileName,'\n',error)
             return;
         })
+    })    
+    .catch(error => {
+        console.log('Error in performing labels',fileName,error)
     })
 }
 
 function performOCR(imageId, fileName) {
     client.textDetection(fileName)
     .then( ([result]) => {
-        const texts = result.textAnnotations;
+        let texts = result.textAnnotations;
 
-        let query = 'INSERT into imageOCRs values'
-        texts.forEach(text => { 
-            if (text == '')     return;
-            query += `("${imageId}","${text.description}"),`
+        texts.shift();          //the first text contains combinations of all the remaining text
+        texts = texts.map(text => text.description)
+        let uniqueTexts =  texts.filter((elem, pos) => texts.indexOf(elem) == pos)    //removing duplicate values
+
+        if (uniqueTexts.length == 0)  return;
+
+        let query = 'INSERT into imageOCRs values';
+        uniqueTexts.forEach(text => { 
+            if (text == '')     return;     
+            query += `("${imageId}","${text}"),`
         })
-    
+        
         query = query.substr(0, query.length-1); //removing last comma
         db.executeQuery(query)
-        .catch( error => {
-            console.log('Error in entering imageOCR\n',imageId,fileName,'\n',error)
+        .catch(error => {
+            console.log('Error in entering imageOCR\n',imageId,fileName,'\n', error)
             return;
         })
+    })
+    .catch(error => {
+        console.log('Error in performing OCR',fileName,error)
     })
 }
 
