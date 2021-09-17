@@ -5,7 +5,7 @@ const login = require('./routes/login')
 const signUp = require('./routes/signUp')
 const upload = require('./routes/upload')
 const search = require('./routes/search')
-const image = require('./routes/image')
+const image = require('./routes/Image.js')
 const deleteImage = require('./routes/delete')
 
 const app = express();
