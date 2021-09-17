@@ -4,13 +4,13 @@ Technologies used: JavaScript, Node.js, Express.js, HTML/CSS/Bootsrap, Google-vi
 
 <details>
     <summary style="cursor:pointer; font-size: 28px; font-weight: bold; font">Screenshots</summary>
-    <img src="Assets/SS-1.jpg"/>
-    <img src="Assets/SS-2.jpg"/>
-    <img src="Assets/SS-3.jpg"/>
-    <img src="Assets/SS-4.jpg"/>
-    <img src="Assets/SS-5.jpg"/>
-    <img src="Assets/SS-6.jpg"/>
-    <img src="Assets/SS-7.jpg"/>
+    <img src="Assets/ss-1.jpg"/>
+    <img src="Assets/ss-2.jpg"/>
+    <img src="Assets/ss-3.jpg"/>
+    <img src="Assets/ss-4.jpg"/>
+    <img src="Assets/ss-5.jpg"/>
+    <img src="Assets/ss-6.jpg"/>
+    <img src="Assets/ss-7.jpg"/>
 </details>
 
 <br/>
