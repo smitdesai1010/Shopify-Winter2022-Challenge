@@ -24,7 +24,7 @@ app.all('*',(req,res) => {
     res.send('This is a invalid route');
 })
 
-
+//heroku logs --tail -a shopifyisawesome
 app.listen(PORT, () => console.log('Server connected at:', `localhost:${PORT}`));
 
 module.exports = app;
