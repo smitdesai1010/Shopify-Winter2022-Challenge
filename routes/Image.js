@@ -7,4 +7,3 @@ router.get('/:filepath', (req,res) => {
 
 module.exports = router;
 
-//https://stackoverflow.com/questions/17515699/node-express-sending-image-files-as-api-response

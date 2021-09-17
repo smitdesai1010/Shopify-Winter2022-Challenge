@@ -1,11 +1,12 @@
 # Shopify-Winter2022-Challenge
 
-Technologies used: JavaScript, Node.js, Express.js, HTML/CSS/Bootsrap, Google-vision API, MySQL
+Technologies used: JavaScript, Node.js, Express.js, HTML/CSS/Bootsrap, Google-vision API, MySQL, file-storage, heroku
 
 
 ## Features
 * Upload Pictures
     * Maximum 10 pictures can be uploaded at once
+    * Maximum file size 15Mb.
     * .jpg .png .gif are accepted types
     * Name and description of the file can be entered during upload
     * User can upload a picture publicly or privatey
@@ -14,6 +15,7 @@ Technologies used: JavaScript, Node.js, Express.js, HTML/CSS/Bootsrap, Google-vi
 * Search filters
     * Labels (like: Night, Beauty, Happy, Street, Dog, Ice-cream etc)
     * Text present in a picture (OCR)
+        * Label and Text recognition will take some time to complete as the API is in free-trial mode. 
     * Name of the file entered during upload or the original filename
     * Extension of the picture
     * Pictures uploaded before and after a certain date
@@ -23,9 +25,10 @@ Technologies used: JavaScript, Node.js, Express.js, HTML/CSS/Bootsrap, Google-vi
 * Delete Pictures
     * A user can delete only pictures uploaded by him/her/they
 
-* View Pictures 
-    * User can view public as well as pictures uploaded by him/her/they
-    * Guest can only view public pictures
+* View/Download Pictures 
+    * User can view or download public as well as pictures uploaded by him/her/they
+    * Guest can only view or download public pictures
+
 
 ## Run Locally
 
@@ -41,17 +44,19 @@ create database shopifyWinter2022InternChallenge;
 use shopifyWinter2022InternChallenge;
 
 create table users(username VARCHAR(50) primary key, password VARCHAR(50) not null);
-
 create table images(id INT primary key, name VARCHAR(50) not null, filepath VARCHAR(50) not null, extension VARCHAR(10) default 'jpg', size INT default 0, owner VARCHAR(50) default 'GUEST', visibility VARCHAR(8) default 'private', uploadDate DATE DEFAULT (curdate()), description VARCHAR(200));
-
 create table imageLabels(imageId INT, label VARCHAR(50), PRIMARY KEY (imageId,label), FOREIGN KEY (imageId) REFERENCES images(id) ON DELETE CASCADE);
-
 create table imageOCRs(imageId INT, text VARCHAR(200), PRIMARY KEY (imageId,text), FOREIGN KEY (imageId) REFERENCES images(id) ON DELETE CASCADE);
+```
 
+Note: If you face error code 1175 in mysql, please execute the following mysql queries. 
+Replace root, localhost and password with your credentials.
+```
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
-<replace root, localhost and password with your credentials in the above query>
 FLUSH PRIVILEGES;
 ```
+
+
 Clone the project
 
 ```
