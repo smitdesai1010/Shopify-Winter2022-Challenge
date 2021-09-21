@@ -1,5 +1,7 @@
 # Shopify-Winter2022-Challenge
 
+[Read](images\challengeDescription.pdf) challenge description.
+
 Technologies used: JavaScript, Node.js, Express.js, HTML/CSS/Bootsrap, Google-vision API, MySQL, file-storage, heroku
 
 <details>
